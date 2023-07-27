@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 @EnableAsync
 @EnableTransactionManagement
-@ComponentScan("io.ooze.daguerre")
+@ComponentScan("pers.zjw.daguerre")
 @ServletComponentScan
 @SpringBootApplication
 public class DaguerreApplication {

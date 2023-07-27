@@ -7,7 +7,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
-group = 'io.ooze.daguerre'
+group = 'pers.zjw.daguerre'
 version = 1.0
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -103,4 +103,4 @@ applicationDistribution.from('build/resources/main') {
     into 'conf/'
 }
 
-mainClassName = 'io.ooze.daguerre.DaguerreApplication'
+mainClassName = 'pers.zjw.daguerre.DaguerreApplication'

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author zhangjw
  * @date 2022/3/31 0031 15:33
  */
-@MapperScan(basePackages = {"io.ooze.daguerre.mapper"})
+@MapperScan(basePackages = {"pers.zjw.daguerre.mapper"})
 @Configuration
 public class DataSourceConfiguration {
     @Bean

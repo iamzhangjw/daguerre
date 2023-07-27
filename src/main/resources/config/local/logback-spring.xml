@@ -12,7 +12,7 @@
         </layout>
     </appender>
 
-    <logger name="io.ooze" level="DEBUG" />
+    <logger name="pers.zjw" level="DEBUG" />
     <logger name="org.mongodb" level="ERROR" />
     <logger name="org.apache.catalina.session" level="ERROR" />
     <root level="INFO">

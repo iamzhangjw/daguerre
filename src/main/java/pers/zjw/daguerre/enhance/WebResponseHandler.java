@@ -48,7 +48,7 @@ import java.util.stream.Stream;
  * @author zhangjw
  */
 @Slf4j
-@RestControllerAdvice(basePackages = {"io.ooze.daguerre"})
+@RestControllerAdvice(basePackages = {"pers.zjw.daguerre"})
 @ConditionalOnClass({HttpServletRequest.class})
 public class WebResponseHandler implements ResponseBodyAdvice<Object> {
 
