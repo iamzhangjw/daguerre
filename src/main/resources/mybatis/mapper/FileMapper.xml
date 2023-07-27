@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.ooze.daguerre.mapper.FileMapper">
+
+    <select id="getAccessFileByFileId" parameterType="string" resultType="io.ooze.daguerre.pojo.vo.AccessFile">
+        select
+            f.uid id,
+            f.store_path storePath,
+            f.original_name originalName,
+            f.type type,
+            f.bucket_name bucketName,
+            f.byte_length byteLength,
+            CONCAT(fu.url, '?', fu.url_query_params) accessUrl,
+            fu.expire_at expireAt
+        from file f left join file_url fu on fu.uid = f.uid and fu.deleted = 0
+        where f.uid = #{uid,jdbcType=VARCHAR} and f.access_key = #{accessKey,jdbcType=VARCHAR} and f.deleted = 0 and f.completed = 1
+    </select>
+
+    <select id="getAccessFile" resultType="io.ooze.daguerre.pojo.vo.AccessFile">
+        select
+            f.uid id,
+            f.store_path storePath,
+            f.original_name originalName,
+            f.type type,
+            f.bucket_name bucketName,
+            f.byte_length byteLength,
+            CONCAT(fu.url, '?', fu.url_query_params) accessUrl,
+            fu.expire_at expireAt
+        from file f left join file_url fu on fu.uid = f.uid and fu.deleted = 0
+        <where>
+            f.access_key = #{accessKey,jdbcType=VARCHAR}
+            <if test="attach != null">
+                and ((f.type = 'img' and ((f.attach = #{attach,jdbcType=VARCHAR} and f.byte_length &gt;= 262144) or f.byte_length &lt; 262144))
+                or (f.type != 'img' and f.attach = #{attach,jdbcType=VARCHAR}))
+            </if>
+            <if test="uids != null and uids.size() > 0" >
+                AND f.uid IN
+                <foreach collection="uids" item="uid" separator="," open="(" close=")">
+                    #{uid,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <update id="updateWhenChunkUploaded" parameterType="io.ooze.daguerre.pojo.entity.FileChunk">
+        update file
+        <set>
+            uploaded_chunk = uploaded_chunk+1,
+            uploaded_length = uploaded_length+#{fileChunk.byteLength},
+            version = #{fileChunk.createAt}
+        </set>
+        <where>
+            uid = #{fileChunk.uid} and attach is null and deleted = 0
+        </where>
+    </update>
+</mapper>

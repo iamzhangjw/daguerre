@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <property name="USER_HOME" value="d://logs/daguerre" />
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${USER_HOME}/daguerre.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${USER_HOME}/daguerre.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level] [%thread] [%logger{36}:%line] - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <logger name="io.ooze" level="DEBUG" />
+    <logger name="org.mongodb" level="ERROR" />
+    <logger name="org.apache.catalina.session" level="ERROR" />
+    <root level="INFO">
+        <appender-ref ref="fileLog" />
+    </root>
+</configuration>
