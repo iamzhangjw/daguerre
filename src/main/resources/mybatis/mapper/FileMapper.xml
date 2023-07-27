@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.ooze.daguerre.mapper.FileMapper">
+<mapper namespace="pers.zjw.daguerre.mapper.FileMapper">
 
-    <select id="getAccessFileByFileId" parameterType="string" resultType="io.ooze.daguerre.pojo.vo.AccessFile">
+    <select id="getAccessFileByFileId" parameterType="string" resultType="pers.zjw.daguerre.pojo.vo.AccessFile">
         select
             f.uid id,
             f.store_path storePath,
@@ -16,7 +16,7 @@
         where f.uid = #{uid,jdbcType=VARCHAR} and f.access_key = #{accessKey,jdbcType=VARCHAR} and f.deleted = 0 and f.completed = 1
     </select>
 
-    <select id="getAccessFile" resultType="io.ooze.daguerre.pojo.vo.AccessFile">
+    <select id="getAccessFile" resultType="pers.zjw.daguerre.pojo.vo.AccessFile">
         select
             f.uid id,
             f.store_path storePath,
@@ -42,7 +42,7 @@
         </where>
     </select>
 
-    <update id="updateWhenChunkUploaded" parameterType="io.ooze.daguerre.pojo.entity.FileChunk">
+    <update id="updateWhenChunkUploaded" parameterType="pers.zjw.daguerre.pojo.entity.FileChunk">
         update file
         <set>
             uploaded_chunk = uploaded_chunk+1,
